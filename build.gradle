@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group 'com.example'
+version '0.1-ALPHA'
+
+repositories {
+    mavenCentral()
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    implementation("net.dv8tion:JDA:4.3.0_277")
+    // Logging dependencies
+    /*implementation 'ch.qos.logback:logback-core:1.2.3'
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    implementation 'org.slf4j:slf4j-api:1.7.30'*/
+}
+
+test {
+    useJUnitPlatform()
+}
