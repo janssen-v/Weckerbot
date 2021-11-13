@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group 'com.example'
@@ -21,6 +22,25 @@ dependencies {
     /*implementation 'ch.qos.logback:logback-core:1.2.3'
     implementation 'ch.qos.logback:logback-classic:1.2.3'
     implementation 'org.slf4j:slf4j-api:1.7.30'*/
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'Main',
+        )
+    }
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'Main'
+    }
+    setBaseName(project.name + '-fat')
+    from {
+        configurations.compile.findAll { !it.name.endsWith('pom') }.collect { it.isDirectory() ? it : zipTree(it) }
+        configurations.runtimeClasspath.findAll { !it.name.endsWith('pom') }.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
 
 test {
